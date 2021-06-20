@@ -1,0 +1,33 @@
+class Solution
+{
+    //Function to detect cycle in an undirected graph.
+    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj)
+    {
+        boolean vis[]=new boolean[V+1];
+        for(int i=0;i<V;i++)
+        {
+            if(vis[i]==false)
+            {// make dfs call
+                if(detectcycle(adj,vis,i,-1)==true)// (list,vis array, source,parent)
+                    return true;
+            }
+        }
+        return false;
+    }
+    boolean detectcycle(ArrayList<ArrayList<Integer>> adj,boolean vis[],int s,int parent)
+    {// detectcycle function is nothing but dfs traversal
+        vis[s]=true;// make source visited
+        for(int u:adj.get(s))// check its adjcent
+        {
+            if(vis[u]==false)// if not vis make dfs call
+            {
+                if(detectcycle(adj,vis,u,s)==true)
+                    return true;
+                    
+            }// if vis and not equal to its parent -> cycle detected return true else check other adjcent
+            else if(u!=parent)
+            return true;// 
+        }
+        return false;// disconnected component
+    }
+}
