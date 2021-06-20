@@ -1,0 +1,43 @@
+// stackoverflow error comes
+
+class Solution 
+{
+    //Function to detect cycle in a directed graph.
+    public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj)
+    {
+      boolean vis[]=new boolean[V+1];
+      boolean recstack[]=new boolean[V+1];
+        for(int i=0;i<V;i++)
+        {
+            if(vis[i]==false)
+            {// make dfs call
+                if(detectcycle(adj,vis,recstack,i)==true)// (list,vis array, source,parent)
+                    return true;
+            }
+        }
+        return false;
+     
+        
+    }
+
+boolean detectcycle(ArrayList<ArrayList<Integer>> adj,boolean vis[],boolean recstack[],int s)
+    {// detectcycle function is nothing but dfs traversal
+        
+        vis[s]=true;// make source visited
+        recstack[s]=true;// recursion stack true
+        
+        for(int u:adj.get(s))// check its adjcent
+        {
+            if(vis[u]==false)// if not vis make dfs call
+            {
+                if(detectcycle(adj,vis,recstack,s)==true)
+                    return true;
+                    
+            }// if vis and recursion stack is true that means cycle detected
+            else if(recstack[u]==true)
+            return true; 
+        }
+        recstack[s]=false;
+        return false;
+    }
+}
