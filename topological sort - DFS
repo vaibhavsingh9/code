@@ -1,0 +1,40 @@
+class Solution {
+    
+    static void dfs(int s, boolean vis[], ArrayList<ArrayList<Integer>> adj, Stack<Integer> st) {
+        vis[s] = true; 
+        for(int it: adj.get(s)) 
+        {
+            if(vis[it]==false) 
+            {
+                findTopoSort(it, vis, adj, st); 
+            } 
+        }
+        
+       st.push(s); 
+    }
+    
+    
+    static int[] topoSort(int N, ArrayList<ArrayList<Integer>> adj) 
+    {
+        Stack<Integer> st = new Stack<Integer>(); // stack for topological sort
+        
+        boolean vis[] = new boolean[N]; 
+        
+        for(int i = 0;i<N;i++) 
+        {
+            if(vis[i] == false) // if not visited
+            {
+                dfs(i, vis, adj, st);
+            }
+        }
+        
+        int topo[] = new int[N];//array for storing elements from stack
+        int ind = 0; 
+        while(!st.isEmpty()) 
+        {
+            topo[ind++] = st.pop();
+        }
+        // for(int i = 0;i<N;i++) System.out.println(topo[i] + " "); 
+        return topo; 
+    }
+}
