@@ -31,7 +31,7 @@ class Gfg {
     
     		    for(int i=0;i<V;i++)  
     		    {
-    		        if(!mSet[i]&&(u==-1||key[i]<key[u])) 
+    		        if(!vis[i]&&(u==-1||key[i]<key[u])) 
     		        u=i; 
     		    }
     	   vis[u] = true; 
