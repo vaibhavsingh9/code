@@ -6,7 +6,7 @@ class Solution {
         {
             if(vis[it]==false) 
             {
-                findTopoSort(it, vis, adj, st); 
+                dfs(it, vis, adj, st); 
             } 
         }
         
