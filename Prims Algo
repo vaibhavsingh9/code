@@ -1,0 +1,65 @@
+import java.util.*; 
+import java.lang.*; 
+import java.io.*; 
+
+class Gfg { 
+	
+    int V; // no of vertices
+	
+    public static int primMST(int graph[][]) 
+    { 
+      int res=0;// for storing sum of minimum spanning tree
+    	
+      int[] key=new int[V]; // for storing edges weight
+    	
+      Arrays.fill(key,Integer.MAX_VALUE);
+    	
+      key[0]=0;// source edge cost=0
+      
+      boolean[] mSet=new boolean[V]; 
+    
+    	for (int count = 0; count < V ; count++) // loop will run upto as many vertices we have
+    	{ 
+    		int u = -1; // initially u=-1 
+    
+    		    for(int i=0;i<V;i++)  // this loop is to get min edge cost among all other vertices
+    		    {
+    		        if(!mSet[i]&&(u==-1||key[i]<key[u])) // if vertex is not presnet in mset and its edge cost is minimum
+    		        u=i; // then take that vertex
+    		    }
+    	   mSet[u] = true; // put that vertex in mset 
+    	  res+=key[u]; // add its edge cost to the res
+    
+    // now check its adjcent vertex and vertices which are not present in mset add its edge cost to the key array 
+    	    
+                for (int v = 0; v < V; v++) 
+                {
+                if (graph[u][v]!=0 && mSet[v] == false) 
+    				    key[v] = Math.min(key[v],graph[u][v]); 
+    	
+                }
+                
+        } 
+        return res;
+    } 
+
+	public static void main(String[] args) 
+	{  
+		Scanner x=new Scanner(System.in);
+    V=x.nextInt();
+    for(int i=0;i<V;i++)
+    {
+      for(int j=0;j<V;j++)
+       {
+          x.nextInt(graph[i][j]);
+        }
+    }
+    
+   //int graph[][] = new int[][] { { 0, 5, 8, 0}, 
+    //						{ 5, 0, 10, 15 }, 
+    	//					{ 8, 10, 0, 20 }, 
+    		//				{ 0, 15, 20, 0 },};  
+
+		System.out.print(primMST(graph)); 
+	} 
+} 
